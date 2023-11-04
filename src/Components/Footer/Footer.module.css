@@ -1,0 +1,27 @@
+.footer {
+    display:flex;
+    background-color: aqua;
+    width:100vw;
+    height:18vh;
+    justify-content: space-around;
+    margin-top: 10px;
+    
+}
+
+.Brand{
+  font-size: 50px;
+  font-weight: 400;
+  color: white;
+}
+
+.footerSocial skype {
+    background-image: url(http://manstyle.coralixthemes.com/dark/img/dark/icons/footer-icons.png);
+    background-repeat: no-repeat;
+    background-position: -156px 0;
+  }
+
+.footerSocial facebook{
+    background-image: url(http://manstyle.coralixthemes.com/dark/img/dark/icons/footer-icons.png);
+  background-repeat: no-repeat;
+  background-position: -233px 0;
+}
