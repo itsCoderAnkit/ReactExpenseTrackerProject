@@ -13,6 +13,7 @@ import ExpenseTracker from "./Components/Pages/ExpenseTracker";
 import { Redirect, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import UserProfile from "./Components/Pages/UserProfile";
 import EmailVerification from "./Components/Authentication/EmailVerification";
+import ForgotPassword from "./Components/Authentication/ForgotPassword";
 
 function App() {
 
@@ -46,6 +47,9 @@ function App() {
           </Route>
           <Route path='/logout'>
             <Logout></Logout>
+          </Route>
+          <Route path='/forgot-password'>
+            <ForgotPassword></ForgotPassword>
           </Route>
           <Route path='*'>
             {console.log("app js *>>")}

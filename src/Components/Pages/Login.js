@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import styles from './Login.module.css'
 import { useHistory } from 'react-router-dom';
 import AuthContext from '../Store/AuthContext';
+import { Link } from 'react-router-dom';
 
 function Login() {
 
@@ -77,7 +78,7 @@ function Login() {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" ref={inputLoginPassword} required />
                 </Form.Group>
-
+                <Link to="/forgot-password">Forgot Password</Link>
                 <Button variant="primary" type="submit">Submit</Button>
             </Form>
         </Container>

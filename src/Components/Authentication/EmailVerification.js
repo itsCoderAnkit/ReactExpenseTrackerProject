@@ -24,6 +24,7 @@ function EmailVerification() {
                 const data= await response.json()
                 console.log( data)
                 setProgress('Email Verification Link Sent , Verify your Email')
+                // verification link sent but now how to verify?
             }
             else{
                 const data= await response.json()
