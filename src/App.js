@@ -8,9 +8,11 @@ import Footer from "./Components/Footer/Footer";
 
 import SignUp from "./Components/Pages/SignUp";
 import Login from "./Components/Pages/Login";
+import Logout from "./Components/Authentication/Logout";
 import ExpenseTracker from "./Components/Pages/ExpenseTracker";
 import { Redirect, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import UserProfile from "./Components/Pages/UserProfile";
+import EmailVerification from "./Components/Authentication/EmailVerification";
 
 function App() {
 
@@ -25,11 +27,11 @@ function App() {
         <Switch>
 
           <Route path='/signup'>
-          {console.log("app js sign up>>")}
+            {console.log("app js sign up>>")}
             <SignUp />
           </Route>
           <Route path='/login'>
-          {console.log("app js login>>")}
+            {console.log("app js login>>")}
             <Login />
           </Route>
           <Route path='/expense-tracker'>
@@ -39,8 +41,14 @@ function App() {
           <Route path='/update-profile'>
             <UserProfile></UserProfile>
           </Route>
+          <Route path='/verify-email'>
+            <EmailVerification></EmailVerification>
+          </Route>
+          <Route path='/logout'>
+            <Logout></Logout>
+          </Route>
           <Route path='*'>
-          {console.log("app js *>>")}
+            {console.log("app js *>>")}
             <Redirect to='/home' />
           </Route>
         </Switch>

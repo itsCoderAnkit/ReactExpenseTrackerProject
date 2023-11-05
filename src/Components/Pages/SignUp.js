@@ -3,9 +3,11 @@ import { Container } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import styles from './SignUp.module.css'
+import { useHistory } from 'react-router-dom';
 
 function SignUp() {
 
+  const history = useHistory()
     const inputSignUpEmail = useRef()
     const inputSignUpPassword = useRef()
     const inputSignUpConfirmPassword = useRef()
@@ -33,6 +35,7 @@ function SignUp() {
            
             if(response.ok){
                 //console.log("signup fetch response",response)
+                history.pushState('/login')
             }
             else{
                 let data = await response.json()

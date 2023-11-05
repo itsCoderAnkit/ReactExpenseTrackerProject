@@ -42,7 +42,8 @@ function Login() {
                     localStorage.setItem('email',data.email)
                     localStorage.setItem('token',data.idToken)
                     authCtx.isLoggedIn=true
-                    authCtx.login(data.idToken,data.email) 
+                    authCtx.login(data.idToken,data.email)
+
                     history.replace('/expense-tracker')
 
                 }

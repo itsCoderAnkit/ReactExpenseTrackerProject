@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect,useState} from 'react'
 import styles from './UserProfile.module.css'
 import { Container } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button';
@@ -6,16 +6,61 @@ import Form from 'react-bootstrap/Form';
 
 function UserProfile() {
 
-    const inputFullName = useRef()
-    const inputPhotoURL= useRef()
+    // unable to delete all charachters from form 
 
+    const [name,setName] = useState(null)
+    const [photoURL,setPhotoURL] = useState(null)
+
+    const getInputName = (event)=>{
+        if(event.target.value.trim().length>0){
+            setName(event.target.value)
+        }
+    }
+
+    const getInputPhotoURL =(event)=>{
+        if(event.target.value.trim().length>0){
+            setPhotoURL(event.target.value)
+        }
+    }
+
+    useEffect(async ()=>{
+        
+        console.log("get user data")
+        const token = localStorage.getItem('token')
+        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAC5PAcrAq1M_kFCh5AoCnelVB4xQmHqE8',
+        {
+            method:'POST',
+            body:JSON.stringify({
+                idToken:token
+            }),
+            headers:{
+                'Content-Type':'application/json'
+            }
+
+        })
+
+        if(response.ok){
+            console.log(response)
+            const data = await response.json()
+            console.log(data.users[0])
+            const previousName=data.users[0].displayName
+            setName(previousName)
+            const previousURL=data.users[0].photoUrl
+            setPhotoURL(previousURL)
+        }
+    },[])
     
     
+
+
+
     const submitProfileHandler = async (e)=>{
         e.preventDefault()
         try{
-            const enteredFullName=inputFullName.current.value
-            const enteredPhotoURL= inputPhotoURL.current.value
+            
+            const enteredFullName = name
+            const enteredPhotoURL = photoURL
+
             const idToken = localStorage.getItem('token')
             console.log("update profile", enteredFullName,enteredPhotoURL)
             const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAC5PAcrAq1M_kFCh5AoCnelVB4xQmHqE8',{
@@ -53,11 +98,11 @@ function UserProfile() {
       <Form onSubmit={submitProfileHandler}>
       <Form.Group className="mb-3" controlId="name" >
         <Form.Label>Enter Full Name</Form.Label>
-        <Form.Control type="text" placeholder="Enter Full Name" ref={inputFullName}  required />
+        <Form.Control type="text" placeholder="Enter Full Name" value={name} onChange={getInputName}  required />
       </Form.Group>
       <Form.Group className="mb-3" controlId="photoURL" >
         <Form.Label>Profile Photo URL</Form.Label>
-        <Form.Control type="text" placeholder="Enter Profile Photo URL" ref={inputPhotoURL} required />
+        <Form.Control type="text" placeholder="Enter Profile Photo URL" value={photoURL} onChange={getInputPhotoURL} required />
       </Form.Group>
 
       
