@@ -10,6 +10,7 @@ import SignUp from "./Components/Pages/SignUp";
 import Login from "./Components/Pages/Login";
 import ExpenseTracker from "./Components/Pages/ExpenseTracker";
 import { Redirect, Switch } from "react-router-dom/cjs/react-router-dom.min";
+import UserProfile from "./Components/Pages/UserProfile";
 
 function App() {
 
@@ -34,6 +35,9 @@ function App() {
           <Route path='/expense-tracker'>
             {console.log("auth context before expense tracker page>>", authCtx)}
             <ExpenseTracker />
+          </Route>
+          <Route path='/update-profile'>
+            <UserProfile></UserProfile>
           </Route>
           <Route path='*'>
           {console.log("app js *>>")}

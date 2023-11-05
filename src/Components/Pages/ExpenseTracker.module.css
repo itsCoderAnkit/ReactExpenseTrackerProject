@@ -1,0 +1,37 @@
+/* styles.css (or your preferred CSS file) */
+
+.container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+    text-align: center;
+    margin-top: 20px; /* Add some top margin for spacing */
+    height:70vh;
+    
+}
+  
+  .container h3,
+  .container p,
+  .container button {
+    display: inline-block !important; /* Display elements in a line and use !important to override conflicting styles */
+    margin: 0 10px; 
+    /* Add some horizontal margin for spacing between elements */
+    border-bottom: 1px solid #000000;
+}
+  
+  /* Additional styling for the button if needed */
+ .container button {
+    background-color: #505050;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  /* Add hover effect to the button */
+  .container button:hover {
+    background-color: rgb(28, 28, 28);
+  }
+  
+  

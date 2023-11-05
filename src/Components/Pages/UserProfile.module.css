@@ -1,0 +1,18 @@
+.container{
+    margin: 60px auto;
+    border: 2px solid black;
+    border-radius: 40px;
+}
+
+.container h1{
+    text-align: center;
+    color: white;
+}
+
+.container label{
+    color: black;   
+}
+
+.container button{
+    margin: 10px 513px
+}
