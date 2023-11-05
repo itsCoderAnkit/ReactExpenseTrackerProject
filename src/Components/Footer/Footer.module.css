@@ -1,6 +1,6 @@
 .footer {
     display:flex;
-    background-color: aqua;
+    background-color: rgb(50, 50, 50);
     width:100vw;
     height:18vh;
     justify-content: space-around;

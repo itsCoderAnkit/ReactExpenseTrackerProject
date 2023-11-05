@@ -6,24 +6,24 @@ import styles from './SignUp.module.css'
 
 function SignUp() {
 
-    const inputEmail = useRef()
-    const inputPassword = useRef()
-    const inputConfirmPassword = useRef()
+    const inputSignUpEmail = useRef()
+    const inputSignUpPassword = useRef()
+    const inputSignUpConfirmPassword = useRef()
 
     const submitSignUpHandler = async (e)=>{
         try{
             e.preventDefault()
-        const enteredEmail = inputEmail.current.value;
-        const enteredPassword = inputPassword.current.value;
-        const enteredConfirmPassword = inputConfirmPassword.current.value
+        const enteredSignUpEmail = inputSignUpEmail.current.value;
+        const enteredSignUpPassword = inputSignUpPassword.current.value;
+        const enteredSignUpConfirmPassword = inputSignUpConfirmPassword.current.value
 
-        if((enteredEmail!=="" && enteredPassword!=="" && enteredConfirmPassword!=="") && (enteredPassword===enteredConfirmPassword)){
+        if((enteredSignUpEmail!=="" && enteredSignUpPassword!=="" && enteredSignUpConfirmPassword!=="") && (enteredSignUpPassword===enteredSignUpConfirmPassword)){
             console.log("all filled")
            let response = await fetch("https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAC5PAcrAq1M_kFCh5AoCnelVB4xQmHqE8",{
             method:"POST",
             body:JSON.stringify({
-                email:enteredEmail,
-                password:enteredPassword,
+                email:enteredSignUpEmail,
+                password:enteredSignUpPassword,
                 returnSecureToken:true
             }),
             headers:{
@@ -65,16 +65,16 @@ function SignUp() {
       <Form onSubmit={submitSignUpHandler}>
       <Form.Group className="mb-3" controlId="Email" >
         <Form.Label>Email address</Form.Label>
-        <Form.Control type="email" placeholder="Enter email" ref={inputEmail} required />
+        <Form.Control type="email" placeholder="Enter email" ref={inputSignUpEmail} required />
       </Form.Group>
 
       <Form.Group className="mb-3" controlId="Password" >
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" ref={inputPassword} required/>
+        <Form.Control type="password" placeholder="Password" ref={inputSignUpPassword} required/>
       </Form.Group>
       <Form.Group className="mb-3" controlId="confirmPassword" >
         <Form.Label>Confirm Password</Form.Label>
-        <Form.Control type="password" placeholder="Password" ref={inputConfirmPassword} required/>
+        <Form.Control type="password" placeholder="Password" ref={inputSignUpConfirmPassword} required/>
       </Form.Group>
       <Button variant="primary" type="submit">
         Submit
