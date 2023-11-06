@@ -45,7 +45,8 @@ function Login() {
                     authCtx.isLoggedIn=true
                     authCtx.login(data.idToken,data.email)
 
-                    history.replace('/expense-tracker')
+                    //history.replace('/expense-tracker')
+                    history.replace('/daily-expenses')
 
                 }
                 else{

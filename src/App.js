@@ -14,6 +14,7 @@ import { Redirect, Switch } from "react-router-dom/cjs/react-router-dom.min";
 import UserProfile from "./Components/Pages/UserProfile";
 import EmailVerification from "./Components/Authentication/EmailVerification";
 import ForgotPassword from "./Components/Authentication/ForgotPassword";
+import DailyExpenses from "./Components/Pages/DailyExpenses";
 
 function App() {
 
@@ -50,6 +51,9 @@ function App() {
           </Route>
           <Route path='/forgot-password'>
             <ForgotPassword></ForgotPassword>
+          </Route>
+          <Route path='/daily-expense'>
+            <DailyExpenses></DailyExpenses>
           </Route>
           <Route path='*'>
             {console.log("app js *>>")}
