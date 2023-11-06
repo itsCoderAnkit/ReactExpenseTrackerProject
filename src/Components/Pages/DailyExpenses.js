@@ -12,11 +12,11 @@ function DailyExpenses() {
     const inputCategory = useRef()
 
     let [expense, setExpense] = useState([])
-    let [tableExpense,setTableExpense] = useState([])
+    let [tableExpense, setTableExpense] = useState([])
     useEffect(() => {
-        console.log(expense)
-        const updateTableExpense = expense.map((item,index) => (<tr key={index}>
-            <td>{index+1}</td>
+        //console.log(expense)
+        const updateTableExpense = expense.map((item, index) => (<tr key={index}>
+            <td>{index + 1}</td>
             <td>{item.Amount}</td>
             <td>{item.Description}</td>
             <td>{item.Category}</td>
@@ -24,22 +24,84 @@ function DailyExpenses() {
         setTableExpense(updateTableExpense)
     }, [expense])
 
-    //let allExpenses = []
 
-    const submitNewExpenseHandler = (e) => {
+    useEffect( ()=>{
+        async function getAllExpenses(){
+       
+            try{
+                
+                const response = await fetch('https://reactexpensetracker-eb718-default-rtdb.firebaseio.com/expenses.json')
+    
+                if(response.status===200){
+                    console.log("get response>>>",response)
+                    const data = await response.json()
+
+                   let arrOfKeys=Object.keys(data)
+                    for(let x of arrOfKeys){
+                        console.log(x,data[x])
+                    }
+                }
+                else{
+                    const Error_Message = "Unable to Fetch Data, Try Again Later"
+                    throw new Error(Error_Message)
+                }
+            }
+            catch(err){
+                console.log(err)
+                alert(err)
+            }
+        }
+        getAllExpenses()
+    },[])
+
+
+    // const previousExpenses = 
+    // previousExpenses()
+    
+    const submitNewExpenseHandler = async (e) => {
         e.preventDefault()
-        const enteredExpenseAmount = inputExpense.current.value
-        const enteredExpenseDescription = inputDescription.current.value
-        const enteredExpenseCategory = inputCategory.current.value
+        try {
+            const enteredExpenseAmount = inputExpense.current.value
+            const enteredExpenseDescription = inputDescription.current.value
+            const enteredExpenseCategory = inputCategory.current.value
 
-        //console.log(enteredExpenseAmount,enteredExpenseDescription,enteredExpenseCategory)
-        const currentExpense = { Amount: enteredExpenseAmount, Description: enteredExpenseDescription, Category: enteredExpenseCategory }
-        setExpense([...expense, currentExpense])
+            //console.log(enteredExpenseAmount,enteredExpenseDescription,enteredExpenseCategory)
+            const currentExpense = { Amount: enteredExpenseAmount, Description: enteredExpenseDescription, Category: enteredExpenseCategory }
 
-        inputExpense.current.value=""
-        inputDescription.current.value=""
-        inputCategory.current.value="Select Category"
-        
+            const response = await fetch('https://reactexpensetracker-eb718-default-rtdb.firebaseio.com/expenses.json',
+                {
+                    method: 'POST',
+                    body: JSON.stringify(currentExpense),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                }
+            )
+            if (response.status === 200) {
+                const data = await response.json()
+                console.log(data)
+            }
+            else {
+                const data = await response.json()
+                console.log(data)
+                const Error_Message = "Unable to save, Retry"
+                throw new Error(Error_Message)
+            }
+
+            setExpense([...expense, currentExpense])
+
+            inputExpense.current.value = ""
+            inputDescription.current.value = ""
+            inputCategory.current.value = "Select Category"
+
+        }
+
+        catch (err) {
+            alert(err)
+
+        }
+
+
     }
     return (
         <>

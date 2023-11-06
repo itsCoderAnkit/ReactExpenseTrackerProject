@@ -9,7 +9,7 @@ export default function Footer() {
            
             <span >
                 <Navbar  className={styles.footer}>
-                    <Navbar.Brand href="/home" className={styles.Brand}>The Generics</Navbar.Brand>
+                    <Navbar.Brand href="/home" className={styles.Brand}>Your Expenses</Navbar.Brand>
                     <Nav className="mr-auto">
                         <Nav.Link href="/home">Youtube</Nav.Link>
                         <Nav.Link href="/features">Twitter</Nav.Link>

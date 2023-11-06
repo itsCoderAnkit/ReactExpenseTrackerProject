@@ -8,52 +8,48 @@ function UserProfile() {
 
     // unable to delete all charachters from form 
 
-    const [name,setName] = useState(null)
-    const [photoURL,setPhotoURL] = useState(null)
+    const [name,setName] = useState('')
+    const [photoURL,setPhotoURL] = useState('')
 
-    const getInputName = (event)=>{
-        if(event.target.value.trim().length>0){
+    const getInputName = (event)=>{    
             setName(event.target.value)
-        }
     }
 
     const getInputPhotoURL =(event)=>{
-        if(event.target.value.trim().length>0){
             setPhotoURL(event.target.value)
         }
-    }
 
-    useEffect(async ()=>{
+    useEffect(()=>{
+        async function getDetails() {
         
-        console.log("get user data")
-        const token = localStorage.getItem('token')
-        const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAC5PAcrAq1M_kFCh5AoCnelVB4xQmHqE8',
-        {
-            method:'POST',
-            body:JSON.stringify({
-                idToken:token
-            }),
-            headers:{
-                'Content-Type':'application/json'
+            console.log("get user data")
+            const token = localStorage.getItem('token')
+            const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:lookup?key=AIzaSyAC5PAcrAq1M_kFCh5AoCnelVB4xQmHqE8',
+            {
+                method:'POST',
+                body:JSON.stringify({
+                    idToken:token
+                }),
+                headers:{
+                    'Content-Type':'application/json'
+                }
+    
+            })
+    
+            if(response.ok){
+                console.log(response)
+                const data = await response.json()
+                console.log(data.users[0])
+                const previousName=data.users[0].displayName
+                setName(previousName)
+                const previousURL=data.users[0].photoUrl
+                setPhotoURL(previousURL)
             }
-
-        })
-
-        if(response.ok){
-            console.log(response)
-            const data = await response.json()
-            console.log(data.users[0])
-            const previousName=data.users[0].displayName
-            setName(previousName)
-            const previousURL=data.users[0].photoUrl
-            setPhotoURL(previousURL)
         }
+        getDetails()
     },[])
     
     
-
-
-
     const submitProfileHandler = async (e)=>{
         e.preventDefault()
         try{
