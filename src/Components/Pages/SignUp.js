@@ -35,7 +35,7 @@ function SignUp() {
            
             if(response.ok){
                 //console.log("signup fetch response",response)
-                history.pushState('/login')
+                history.push('/verify-email')
             }
             else{
                 let data = await response.json()

@@ -10,8 +10,8 @@ const history = useHistory()
         history.push('/update-profile')
     }
 
-    const verifyEmailHandler = ()=>{
-        history.push('/verify-email')
+    const expenseTrackerHandler = ()=>{
+        history.push('/daily-expense')
     }
     return (
         <Container className={styles.container}>
@@ -20,7 +20,7 @@ const history = useHistory()
                 <p>Your Profile is Incomplete</p>
                 <Button onClick={updateProfileHandler}>Complete Here</Button>
             </div>
-            <Button onClick={verifyEmailHandler}>Verify Email</Button>
+            <Button onClick={expenseTrackerHandler}>Go To Expense Tracker</Button>
         </Container>
     )
 }

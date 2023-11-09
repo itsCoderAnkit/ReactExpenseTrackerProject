@@ -11,53 +11,56 @@ function DailyExpenses() {
     const inputDescription = useRef()
     const inputCategory = useRef()
 
-    let [expense, setExpense] = useState([])
-    let [tableExpense, setTableExpense] = useState([])
+    let response
+
+    let [expense, setExpense] = useState({})
+    //let [tableExpense, setTableExpense] = useState([])
     useEffect(() => {
-        //console.log(expense)
-        const updateTableExpense = expense.map((item, index) => (<tr key={index}>
-            <td>{index + 1}</td>
-            <td>{item.Amount}</td>
-            <td>{item.Description}</td>
-            <td>{item.Category}</td>
-        </tr>))
-        setTableExpense(updateTableExpense)
-    }, [expense])
+        console.log(expense.previousExpenseData)
+        // let ArrOfKeys = Object.keys(expense.previousExpenseData)
+        // console.log(ArrOfKeys)
+        // const updateTableExpense = expense.map((item, index) => (<tr key={index}>
+        //     <td>{index + 1}</td>
+        //     <td>{item.Amount}</td>
+        //     <td>{item.Description}</td>
+        //     <td>{item.Category}</td>
+        // </tr>))
+        // setTableExpense(updateTableExpense)
+    }, [response])
 
 
-    useEffect( ()=>{
-        async function getAllExpenses(){
-       
-            try{
-                
-                const response = await fetch('https://reactexpensetracker-eb718-default-rtdb.firebaseio.com/expenses.json')
-    
-                if(response.status===200){
-                    console.log("get response>>>",response)
-                    const data = await response.json()
 
-                   let arrOfKeys=Object.keys(data)
-                    for(let x of arrOfKeys){
-                        console.log(x,data[x])
-                    }
+    useEffect(() => {
+        async function getAllExpenses() {
+
+            try {
+
+                response = await fetch('https://reactexpensetracker-eb718-default-rtdb.firebaseio.com/expenses.json')
+
+                if (response.status === 200) {
+                    console.log("get response>>>", response)
+                    let previousExpenseData = await response.json()
+                    console.log(previousExpenseData)
+                    setExpense({ ...expense, previousExpenseData })
+                    console.log(expense)
                 }
-                else{
+                else {
                     const Error_Message = "Unable to Fetch Data, Try Again Later"
                     throw new Error(Error_Message)
                 }
             }
-            catch(err){
+            catch (err) {
                 console.log(err)
                 alert(err)
             }
         }
         getAllExpenses()
-    },[])
+    }, [])
 
 
     // const previousExpenses = 
     // previousExpenses()
-    
+
     const submitNewExpenseHandler = async (e) => {
         e.preventDefault()
         try {
@@ -141,9 +144,9 @@ function DailyExpenses() {
                             <th>Category</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    {/* <tbody>
                         {tableExpense}
-                    </tbody>
+                    </tbody> */}
                 </Table>
             </Container>
         </>

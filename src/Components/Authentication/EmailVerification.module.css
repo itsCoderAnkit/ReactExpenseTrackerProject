@@ -10,6 +10,12 @@
     margin-bottom: 40px;
     text-decoration: underline;
 }
+.container h1{
+    text-align: center;
+    color: rgb(103, 102, 102);
+    margin-bottom: 40px;
+    text-decoration: underline;
+}
 
 
 .container label{
