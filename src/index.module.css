@@ -10,8 +10,14 @@ html {
 
 body {
   margin: 0;
-  background-color: #ffffff;
+  background-color: #886767;
 }
+
+bodyDark {
+    margin: 0;
+    background-color: #886767;
+  }
+
 
 
 

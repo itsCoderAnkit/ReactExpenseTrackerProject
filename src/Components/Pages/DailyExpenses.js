@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import Table from 'react-bootstrap/Table';
 import styles from './DailyExpenses.module.css'
 import { expenseActions } from '../Store/expenseSlice';
+import { modeActions } from '../Store/modeSlice';
 import { useSelector, useDispatch } from 'react-redux'
 
 let firstLoad = true
@@ -16,17 +17,26 @@ function DailyExpenses() {
     // const myexpenseslice = useSelector((state) => state.expense)
     // console.log("daily expense expense slice>>>>>>",myexpenseslice)
 
-    const dailyExp = useSelector((state)=>state.expense)
+    const dailyExp = useSelector((state) => state.expense)
     console.log(dailyExp.totalExpense)
+    const currentMode = useSelector((state)=>state.mode.mode)
+    console.log("mode now>>>>>>>>.",currentMode)
+
+    if(currentMode){
+        document.body.style.backgroundColor="white"
+    }
+    else if(!currentMode){
+        document.body.style.backgroundColor="black"
+    }
 
     let editData = false
-    // console.log("editdata", editData)
+     console.log("editdata", editData)
     let expenseId
     let getResponse = {}
     let deleteExpense
     let postResponse
     let editResponse
-
+    
     const inputExpense = useRef()
     const inputDescription = useRef()
     const inputCategory = useRef()
@@ -34,6 +44,7 @@ function DailyExpenses() {
 
     let [expense, setExpense] = useState({})
     let [tableExpense, setTableExpense] = useState([])
+    let [activate, setActivate] = useState(false)
 
     const deleteExpenseHandler = async (e) => {
         e.preventDefault()
@@ -56,21 +67,21 @@ function DailyExpenses() {
             let ArrOfKeys = Object.keys(expense)
             //console.log(ArrOfKeys)
             let finalArr = []
-            let totalExpenses =0
+            let totalExpenses = 0
             for (let i = 0; i < ArrOfKeys.length; i++) {
                 let newArr = []
                 let key = ArrOfKeys[i]
                 //console.log(i,key,expense[key])
-                totalExpenses = totalExpenses+Number.parseInt(expense[key].Amount)
+                totalExpenses = totalExpenses + Number.parseInt(expense[key].Amount)
                 newArr.push(key)
                 newArr.push(expense[key])
                 finalArr.push(newArr)
             }
-
+            
             dispatch(expenseActions.allExpenses({ expenses: finalArr, totalExpenses: totalExpenses }))
 
-            console.log("final arr>>>>>",finalArr,totalExpenses)
-            
+            console.log("final arr>>>>>", finalArr, totalExpenses)
+
             const updateTableExpense = finalArr.map((item, index) => (<tr key={item[0]}>
                 <td>{index + 1}</td>
                 <td>{item[1].Amount}</td>
@@ -208,10 +219,48 @@ function DailyExpenses() {
             alert(err)
         }
     }
+
+    const activateHandler = () => {
+        setActivate(true)
+    }
+
+    const themeChangerHandler = (e) => {
+      console.log(e)
+      dispatch(modeActions.changeMode())
+        console.log("theme changer")
+    }
+
+ 
+        const downloadHandler =()=>{
+            const  download = document.getElementById('download')
+            console.log(expense)
+            
+            let ArrOfKeys = Object.keys(expense)
+            //console.log(ArrOfKeys)
+            let finalArr = []
+            let totalExpenses = 0
+            for (let i = 0; i < ArrOfKeys.length; i++) {
+                let newArr = []
+                let key = ArrOfKeys[i]
+                console.log(i,key,expense[key])
+                totalExpenses = totalExpenses + Number.parseInt(expense[key].Amount)
+                newArr.push(key)
+                newArr.push(expense[key])
+                finalArr.push(newArr)
+            }
+            console.log(">>>>",finalArr)
+            const data = finalArr.map((item,index)=>(`${index+1} --> Amount - ${item[1].Amount}, Description - ${item[1].Description}, Category - ${item[1].Category} `))
+            const result = data.join('\n')
+            const blob = new Blob([result])
+            download.href = URL.createObjectURL(blob)    
+        }
+
     return (
         <>
-        {dailyExp.totalExpense>10000 ? <Button variant="primary" type="submit">ACTIVATE PREMIUM</Button>:null}
-            <Container className={styles.container}>
+            {dailyExp.totalExpense > 10000 ? <Button variant="primary" type="submit" onClick={activateHandler}>ACTIVATE PREMIUM</Button> : null}
+            {activate && <a id="download" download="expenses.csv" href='/' onClick={downloadHandler}> Download Expenses</a>}
+            {activate && <Form.Check type="switch" id="custom-switch" label="Change Theme" onClick={themeChangerHandler} />}
+            <Container className={currentMode===true? styles.container:styles.containerDark }>
                 <h1>Add New Expense</h1>
                 <Form onSubmit={submitNewExpenseHandler}>
                     <Form.Group className="mb-3" controlId="Expense" >
@@ -236,7 +285,7 @@ function DailyExpenses() {
                     <Button variant="primary" type="submit">Add Expense</Button>
                 </Form>
             </Container>
-            <Container className={styles.container} >
+            <Container className={currentMode===true? styles.container:styles.containerDark} >
                 <h3>MY Expenses List</h3>
                 <Table striped bordered hover>
                     <thead>

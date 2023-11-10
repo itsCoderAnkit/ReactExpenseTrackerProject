@@ -4,16 +4,16 @@ import Navbar from 'react-bootstrap/Navbar';
 import styles from './Header.module.css'
 import Nav from 'react-bootstrap/Nav';
 import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import {useSelector } from 'react-redux';
 
 
 function Header() {
+
   let token = localStorage.getItem('token')
   let email = localStorage.getItem('email')
   const login = useSelector((state)=>state.auth)
     console.log("header auth slice",login)
 
-  
   
   return (
     <header>

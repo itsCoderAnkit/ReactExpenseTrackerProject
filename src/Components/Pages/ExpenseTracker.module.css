@@ -34,4 +34,39 @@
     background-color: rgb(28, 28, 28);
   }
   
+  /* styles.css (or your preferred CSS file) */
+
+.containerDark {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  text-align: center;
+  margin-top: 20px; /* Add some top margin for spacing */
+  height:70vh;
   
+}
+
+.containerDark h3,
+.containerDark p,
+.containerDark button {
+  display: inline-block !important; /* Display elements in a line and use !important to override conflicting styles */
+  margin: 0 10px; 
+  /* Add some horizontal margin for spacing between elements */
+  border-bottom: 1px solid #8a3e3e;
+}
+
+/* Additional styling for the button if needed */
+.containerDark button {
+  background-color: #873e3e;
+  color: #f00202;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Add hover effect to the button */
+.containerDark button:hover {
+  background-color: rgb(136, 61, 61);
+}
+
