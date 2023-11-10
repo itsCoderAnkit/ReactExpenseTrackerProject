@@ -4,18 +4,22 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import styles from './Login.module.css'
 import { useHistory } from 'react-router-dom';
-import AuthContext from '../Store/AuthContext';
 import { Link } from 'react-router-dom';
+import { authActions } from '../Store/authSlice';
+import {useSelector,useDispatch} from 'react-redux'
 
 function Login() {
 
-    const authCtx = useContext(AuthContext)
+    const dispatch = useDispatch()
+    
 
     const history= useHistory()
     const inputLoginEmail = useRef()
     const inputLoginPassword = useRef()
-
+    const login = useSelector((state)=>state.auth)
+    console.log(login)
     const submitLoginHandler = async (e) => {
+
         e.preventDefault()
         try{
             const enteredLoginEmail = inputLoginEmail.current.value
@@ -42,8 +46,11 @@ function Login() {
                     console.log("Login Data",data)
                     localStorage.setItem('email',data.email)
                     localStorage.setItem('token',data.idToken)
-                    authCtx.isLoggedIn=true
-                    authCtx.login(data.idToken,data.email)
+
+                    dispatch(authActions.login({emailId:data.email,tokenId:data.idToken}))
+
+                    // authCtx.isLoggedIn=true
+                    // authCtx.login(data.idToken,data.email)
 
                     history.replace('/expense-tracker')
                     //history.replace('/daily-expenses')

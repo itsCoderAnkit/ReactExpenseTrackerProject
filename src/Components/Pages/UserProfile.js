@@ -6,8 +6,6 @@ import Form from 'react-bootstrap/Form';
 
 function UserProfile() {
 
-    // unable to delete all charachters from form 
-
     const [name,setName] = useState('')
     const [photoURL,setPhotoURL] = useState('')
 

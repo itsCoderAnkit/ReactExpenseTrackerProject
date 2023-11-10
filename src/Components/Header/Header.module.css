@@ -1,7 +1,8 @@
 .navbar {
     display: grid;
     grid-template-columns: 1fr auto 1fr;
-    align-items: center;
+    align-items:center;
+    justify-content: space-evenly;
     background-color: #505050; /* Setting background color of the navbar */
     color: white; /* Setting text color to white */
     padding: 10px 0; /* Adding padding for better spacing */

@@ -1,7 +1,6 @@
 
 import { Fragment, useContext } from "react";
 import { Route } from 'react-router-dom'
-import AuthContext from "./Components/Store/AuthContext";
 
 import Header from "./Components/Header/Header";
 import Footer from "./Components/Footer/Footer";
@@ -15,10 +14,28 @@ import UserProfile from "./Components/Pages/UserProfile";
 import EmailVerification from "./Components/Authentication/EmailVerification";
 import ForgotPassword from "./Components/Authentication/ForgotPassword";
 import DailyExpenses from "./Components/Pages/DailyExpenses";
+import { authActions } from "./Components/Store/authSlice";
+import {useSelector,useDispatch} from 'react-redux'
 
 function App() {
 
-  const authCtx = useContext(AuthContext)
+  const email = localStorage.getItem('email')
+  const token= localStorage.getItem('token')
+
+  const dispatch = useDispatch()
+
+  if(email!=null && token!=null){
+    dispatch(authActions.login({emailId:email,tokenId:token}))
+  }
+  else if(email==null || token==null){
+    dispatch(authActions.logout({emailId:email,tokenId:token}))
+  }
+
+  const login = useSelector((state)=>state.auth)
+    console.log(login)
+
+    // const expense = useSelector((state) => state.expense)
+    // console.log("app js expense slice>>>>>>",expense)
 
   return (
     <Fragment>
@@ -37,7 +54,7 @@ function App() {
             <Login />
           </Route>
           <Route path='/expense-tracker'>
-            {console.log("auth context before expense tracker page>>", authCtx)}
+            {console.log("auth-slice before expense tracker page>>", login)}
             <ExpenseTracker />
           </Route>
           <Route path='/update-profile'>
