@@ -56,25 +56,25 @@ function DailyExpenses() {
         //var num1 = e.target.id
         console.log("delete key>>>>", e.target.id, expense)
 
-        // deleteExpense = await fetch(`https://reactexpensetracker-eb718-default-rtdb.firebaseio.com/${email2}/expenses/${e.target.id}.json`, {
-        //     method: 'DELETE',
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     }
-        // })
-        // console.log(deleteExpense)
+        deleteExpense = await fetch(`https://reactexpensetracker-eb718-default-rtdb.firebaseio.com/${email2}/expenses/${e.target.id}.json`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        console.log(deleteExpense)
 
 
         setExpense((prevExpense) => {
             //console.log("now  it runs", num1)
 
-            // const newExpense = {...prevExpense}
+             const newExpense = {...prevExpense}
             // delete newExpense[expenseId]
             // const {expenseId,...newExpense} = prevExpense;
             // console.log(newExpense)
-            delete prevExpense[e.target.id]
-            console.log(prevExpense, e.target.id)
-            return prevExpense;
+            delete newExpense[e.target.id]
+            console.log(newExpense, e.target.id)
+            return newExpense;
         })
         console.log("after set")
     }
@@ -287,7 +287,7 @@ function DailyExpenses() {
     return (
         <>
             <div className={styles.premium}>
-                {dailyExp.totalExpense > 10000 ? <Button variant="primary" type="submit" onClick={activateHandler}>{dailyExp.totalExpense > 10000 ? " PREMIUM USER" : "Activate Premium"}</Button> : null}
+                {dailyExp.totalExpense > 10000 ? <Button variant="primary" type="submit" onClick={activateHandler}>{activate ===true ? " PREMIUM USER" : "Activate Premium"}</Button> : null}
                 {activate && <a id="download" download="expenses.csv" href='/' onClick={downloadHandler}> Download Expenses</a>}
                 {activate && <Form.Check type="switch" id="custom-switch" label="Toggle Mode " onClick={themeChangerHandler} />}
 
