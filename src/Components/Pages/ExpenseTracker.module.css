@@ -7,8 +7,17 @@
     justify-content: space-between;
     text-align: center;
     margin-top: 20px; /* Add some top margin for spacing */
-    height:70vh;
+    height:10vh;
     
+}
+.para{
+  display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    margin-top: 20px; /* Add some top margin for spacing */
+    height:60vh;
 }
   
   .container h3,

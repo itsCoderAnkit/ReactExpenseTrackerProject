@@ -3,9 +3,10 @@ import styles from './UserProfile.module.css'
 import { Container } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
+import {useHistory} from 'react-router-dom'
 
 function UserProfile() {
-
+    const history = useHistory()
     const [name,setName] = useState('')
     const [photoURL,setPhotoURL] = useState('')
 
@@ -31,9 +32,7 @@ function UserProfile() {
                 headers:{
                     'Content-Type':'application/json'
                 }
-    
-            })
-    
+            })    
             if(response.ok){
                 console.log(response)
                 const data = await response.json()
@@ -47,11 +46,9 @@ function UserProfile() {
         getDetails()
     },[])
     
-    
     const submitProfileHandler = async (e)=>{
         e.preventDefault()
         try{
-            
             const enteredFullName = name
             const enteredPhotoURL = photoURL
 
@@ -74,6 +71,7 @@ function UserProfile() {
                 console.log("update profile response",response)
                 const data = await response.json()
                 console.log("update profile data",data)
+                history.replace('/home')
 
             }
             else{

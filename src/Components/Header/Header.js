@@ -19,7 +19,7 @@ function Header() {
     <header>
         <Navbar className={styles.navbar}>
         <Container>
-          <Navbar.Brand className={styles.brand} href="/home">Track Your Finances</Navbar.Brand>
+          <Navbar.Brand className={styles.brand} href="/home">Financier</Navbar.Brand>
           <Nav className={styles.centerlinks}>
             <NavLink activeClassName={styles.active} to="/home">Home</NavLink>
             {

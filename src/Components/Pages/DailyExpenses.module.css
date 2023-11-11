@@ -22,6 +22,14 @@
     width:70px
 }
 
+.premium{
+    display: flex;
+    width: 80vw;
+    justify-content: space-around;
+    margin: 10px 100px;
+    align-items: center
+}
+
 .containerDark{
     margin: 95px auto;
     border: 2px solid rgb(255, 255, 255);

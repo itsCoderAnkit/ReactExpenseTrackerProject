@@ -82,37 +82,35 @@ const submitVerifyLinkHandler = async(e)=>{
     try{
         const enteredLink = inputVerifyLink.current.value
         console.log(enteredLink)
-        
-        const verificationResponse = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAC5PAcrAq1M_kFCh5AoCnelVB4xQmHqE8',
-        {
-            method:'POST',
-            body:JSON.stringify({
-                oobCode:enteredLink
-            }),
-            headers:{
-                'Content-Type':'application/json'
-            }
-
-
-        })
-         if(verificationResponse.status=200){
-            const response =verificationResponse
-            console.log("verificationResponseok")
-            console.log("verification response>>>",response)
-            const data = await verificationResponse.json()
-            console.log(data)
-            history.push('/login')
-        }
-        else{
-            console.log("verificationResponse else" , verificationResponse)
-            const data = await verificationResponse.json()
-            console.log("else data",data)
-            deleteAccount()
-        }
+        history.push('/login')
+        // const verificationResponse = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyAC5PAcrAq1M_kFCh5AoCnelVB4xQmHqE8',
+        // {
+        //     method:'POST',
+        //     body:JSON.stringify({
+        //         oobCode:enteredLink
+        //     }),
+        //     headers:{
+        //         'Content-Type':'application/json'
+        //     }
+        // })
+        // console.log(verificationResponse)
+        //  if(verificationResponse.status=200){
+        //     const response =verificationResponse
+        //     console.log("verificationResponseok")
+        //     console.log("verification response>>>",response)
+        //     const data = await verificationResponse.json()
+        //     console.log(data)
+        //     history.push('/login')
+        // }
+        // else{
+        //     console.log("verificationResponse else" , verificationResponse)
+        //     const data = await verificationResponse.json()
+        //     console.log("else data",data)
+        //     deleteAccount()
+        // }
     }
     catch(err){
         console.log(err)
-
     }
 }
 
