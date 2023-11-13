@@ -32,7 +32,7 @@ function App() {
   }
 
   const login = useSelector((state)=>state.auth)
-    console.log(login)
+    console.log(login.isLoggedIn)
 
     // const expense = useSelector((state) => state.expense)
     // console.log("app js expense slice>>>>>>",expense)
@@ -59,22 +59,25 @@ function App() {
           </Route>
           <Route path='/expense-tracker'>
             {console.log("auth-slice before expense tracker page>>", login)}
-            <ExpenseTracker />
+            {login.isLoggedIn ===true? <ExpenseTracker />:<Redirect to='/login'/>}
           </Route>
           <Route path='/update-profile'>
-            <UserProfile></UserProfile>
+            {/* <UserProfile/> */}
+            {login.isLoggedIn ===true? <UserProfile/>:<Redirect to='/login'/>}
           </Route>
           <Route path='/verify-email'>
-            <EmailVerification></EmailVerification>
+            {/* <EmailVerification/> */}
+            {login.isLoggedIn ===true? <EmailVerification/>:<Redirect to='/login'/>}
           </Route>
           <Route path='/logout'>
-            <Logout></Logout>
+            <Logout/>
           </Route>
           <Route path='/forgot-password'>
             <ForgotPassword></ForgotPassword>
           </Route>
           <Route path='/daily-expense'>
-            <DailyExpenses></DailyExpenses>
+            {/* <DailyExpenses/> */}
+            {login.isLoggedIn ===true? <DailyExpenses/>:<Redirect to='/login'/>}
           </Route>
           <Route path='*'>
             {console.log("app js *>>")}
